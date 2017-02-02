@@ -18,12 +18,12 @@ class CreateTeamPlayersTable extends Migration
 
             $table->integer('team_id')->unsigned();
             $table->foreign('team_id')
-                ->refrences('id')->on('teams')
+                ->references('id')->on('teams')
                 ->onDelete('cascade');
 
             $table->integer('player_id')->unsigned();
             $table->foreign('player_id')
-                ->refrences('id')->on('team_members')
+                ->references('id')->on('team_members')
                 ->onDelete('cascade');
 
             $table->integer('number')->unsigned()->nullable();

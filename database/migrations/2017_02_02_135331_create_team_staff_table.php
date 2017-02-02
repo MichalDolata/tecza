@@ -18,12 +18,12 @@ class CreateTeamStaffTable extends Migration
 
             $table->integer('team_id')->unsigned();
             $table->foreign('team_id')
-                ->refrences('id')->on('teams')
+                ->references('id')->on('teams')
                 ->onDelete('cascade');
 
             $table->integer('person_id')->unsigned();
             $table->foreign('person_id')
-                ->refrences('id')->on('team_members')
+                ->references('id')->on('team_members')
                 ->onDelete('cascade');
 
             $table->enum('role', ['Trener', 'Kierownik']);
