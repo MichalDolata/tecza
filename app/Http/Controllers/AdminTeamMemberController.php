@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CoachController extends Controller
+class AdminTeamMemberController extends Controller
 {
     //
 }
