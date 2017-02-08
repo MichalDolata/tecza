@@ -83,4 +83,6 @@ class AdminNewsController extends Controller
             return redirect()->action('AdminNewsController@edit', [$news->slug]);
         }
     }
+
+    // TODO: delete function
 }

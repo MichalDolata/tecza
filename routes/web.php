@@ -41,15 +41,25 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::group(['prefix' => '/aktualnosci'], function() {
         Route::get('/', 'AdminNewsController@index');
 
-        Route::get('/utworz', 'AdminNewsController@create');
+        Route::get('/dodaj', 'AdminNewsController@create');
         Route::post('/', 'AdminNewsController@store');
 
         Route::get('/{news}', 'AdminNewsController@edit');
         Route::post('/{news}', 'AdminNewsController@update');
     });
 
-    Route::get('/druzyny', function() {
-       return 'Admin panel - druzyny';
+    Route::group(['prefix' => '/druzyny'], function() {
+
+    });
+
+    Route::group(['prefix' => '/czlonkowie'], function() {
+        Route::get('/', 'AdminTeamMemberController@index');
+
+        Route::get('/dodaj', 'AdminTeamMemberController@create');
+        Route::post('/', 'AdminTeamMemberController@store');
+
+        Route::get('/{member}', 'AdminTeamMemberController@edit');
+        Route::post('/{member}', 'AdminTeamMemberController@update');
     });
 
     Route::get('/rozgrywki', function() {

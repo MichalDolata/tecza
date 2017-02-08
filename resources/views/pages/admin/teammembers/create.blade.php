@@ -17,20 +17,20 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ action('AdminNewsController@update', [$news->slug]) }}">
+    <form method="POST" action="{{ action('AdminTeamMemberController@store') }}">
         {{ csrf_field() }}
         <br>
         <div class="form-group">
-            <label for="title">Tytuł</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $news->title) }}">
+            <label for="first_name">Imię</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}">
         </div>
         <div class="form-group">
-            <label for="lead">Lead</label>
-            <textarea name="lead" id="lead" class="form-control" rows="2">{{ old('lead',  $news->lead) }}</textarea>
+            <label for="last_name">Nazwisko</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}">
         </div>
         <div class="form-group">
-            <label for="content">Treść</label>
-            <textarea name="content" id="content" class="form-control" rows="15">{{ old('content',  $news->content) }}</textarea>
+            <label for="content">Data urodzenia</label>
+            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
         </div>
         <input type="submit" class="btn btn-primary">
     </form>
