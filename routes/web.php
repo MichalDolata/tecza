@@ -49,7 +49,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     });
 
     Route::group(['prefix' => '/druzyny'], function() {
+        Route::get('/', 'AdminTeamController@index');
 
+        Route::get('/dodaj', 'AdminTeamController@create');
+        Route::post('/', 'AdminTeamController@store');
+
+        Route::get('/{team}', 'AdminTeamController@edit');
+        Route::post('/{team}', 'AdminTeamController@update');
     });
 
     Route::group(['prefix' => '/czlonkowie'], function() {
@@ -66,6 +72,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
        return 'Admin panel - rozgrywki';
     });
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

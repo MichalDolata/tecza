@@ -31,3 +31,11 @@ $factory->define(App\News::class, function (Faker\Generator $faker) {
        'content' => join("\n\n", $faker->paragraphs(mt_rand(3, 5))),
    ];
 });
+
+$factory->define(App\TeamMember::class, function (Faker\Generator $faker) {
+   return [
+       'first_name' => $faker->firstName,
+       'last_name' => $faker->lastName,
+       'date_of_birth' => $faker->date('Y-m-d', '-10 years')
+   ];
+});

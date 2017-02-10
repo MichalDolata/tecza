@@ -13,11 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'preB',
-            'email' => str_random(10).'@gmail.com',
+            'email' => 'preblue@gmail.com',
             'password' => bcrypt('test')
         ]);
 
-        App\News::truncate();
         factory(App\News::class, 10)->create();
+
+        factory(App\TeamMember::class, 20)->create();
     }
 }

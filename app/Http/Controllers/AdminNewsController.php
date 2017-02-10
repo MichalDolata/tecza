@@ -23,15 +23,10 @@ class AdminNewsController extends Controller
     public function store(Request $request) {
         $validator = Validator::make($request->all(),
             [
-                'title' => 'required|max:255|unique:news',
+                'title' => 'required|max:255|unique:news|slug:news',
                 'lead' => 'required',
                 'content' => 'required'
             ]);
-        $validator->after(function($validator) {
-            if(News::where('slug', str_slug($validator->attributes()['title']))->count()) {
-                $validator->errors()->add('title', 'Tytuł jest zbyt podobny do już istniejącego');
-            }
-        });
 
         if ($validator->fails()) {
             return redirect()->action('AdminNewsController@create')
@@ -55,18 +50,12 @@ class AdminNewsController extends Controller
     }
 
     public function update(Request $request, News $news) {
-        $validator = Validator::make(array_merge($request->all(), ['news_id' => $news->id]),
+        $validator = Validator::make($request->all(),
             [
-                'title' => ['required', 'max:255', Rule::unique('news')->ignore($news->id)],
+                'title' => ['required', 'max:255', Rule::unique('news')->ignore($news->id), 'slug:news,'.$news->id],
                 'lead' => 'required',
                 'content' => 'required',
             ]);
-        $validator->after(function($validator) {
-            if(News::where('slug', str_slug($validator->attributes()['title']))
-                ->where('id', '<>', $validator->attributes()['news_id'])->count()) {
-                $validator->errors()->add('title', 'Tytuł jest zbyt podobny do już istniejącego');
-            }
-        });
 
         if ($validator->fails()) {
             return redirect()->action('AdminNewsController@edit', [$news->slug])
