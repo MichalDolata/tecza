@@ -1,21 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Edytuj członka')
 
 @section('content')
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if(Session::has('status'))
-        <div class="alert alert-success">
-            <p>{{ Session::get('status') }}</p>
-        </div>
-    @endif
+    @include('partials.admin.alerts')
 
     <form method="POST" action="{{ action('AdminTeamMemberController@update', [$member->id]) }}">
         {{ csrf_field() }}
@@ -32,6 +20,6 @@
             <label for="content">Data urodzenia</label>
             <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth', $member->date_of_birth, '') }}">
         </div>
-        <input type="submit" class="btn btn-primary">
+        <input type="submit" class="btn btn-primary" value="Edytuj">
     </form>
 @endsection

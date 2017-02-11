@@ -35,7 +35,7 @@ Route::get('/kontakt', function() {
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::get('/', function() {
-       return 'Admin panel';
+       return redirect()->action('AdminNewsController@index');
     });
 
     Route::group(['prefix' => '/aktualnosci'], function() {

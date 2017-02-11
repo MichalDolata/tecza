@@ -1,13 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Drużyny')
 
 @section('content')
     <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Order</th>
-            <th>Edit</th>
+            <th>Nazwa</th>
+            <th>Kolejność</th>
+            <th>Edytuj</th>
         </tr>
         </thead>
         <tbody>

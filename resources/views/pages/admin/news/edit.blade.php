@@ -1,21 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Edytuj artykuł')
 
 @section('content')
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if(Session::has('status'))
-        <div class="alert alert-success">
-            <p>{{ Session::get('status') }}</p>
-        </div>
-    @endif
+    @include('partials.admin.alerts')
 
     <form method="POST" action="{{ action('AdminNewsController@update', [$news->slug]) }}">
         {{ csrf_field() }}
@@ -32,6 +20,6 @@
             <label for="content">Treść</label>
             <textarea name="content" id="content" class="form-control" rows="15">{{ old('content',  $news->content) }}</textarea>
         </div>
-        <input type="submit" class="btn btn-primary">
+        <input type="submit" class="btn btn-primary" value="Edytuj">
     </form>
 @endsection
