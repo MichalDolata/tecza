@@ -105,3 +105,16 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+#team .badge{
+    cursor: pointer;
+}
+
+#team .badge:hover{
+    background-color: #337ab7;
+}
+
+#team .badge:active {
+    background-color: #204d74;
+    border-color: #204d74;
+}

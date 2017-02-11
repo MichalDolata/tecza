@@ -8,8 +8,8 @@
         <tr>
             <th>#</th>
             <th>Nazwa</th>
-            <th>Kolejność</th>
-            <th>Edytuj</th>
+            <th class="text-center">Kolejność</th>
+            <th class="text-center">Edytuj</th>
         </tr>
         </thead>
         <tbody>
@@ -17,8 +17,8 @@
             <tr>
                 <td>{{$team->id}}</td>
                 <td>{{$team->name}}</td>
-                <td>{{$team->order}}</td>
-                <td><a href="{{action('AdminTeamController@edit', [$team->slug])}}">Edit</a></td>
+                <td class="text-center">{{$team->order}}</td>
+                <td class="text-center"><a href="{{action('AdminTeamController@edit', [$team->slug])}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
             </tr>
         @endforeach
         </tbody>

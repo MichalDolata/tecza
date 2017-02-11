@@ -19,4 +19,7 @@ class TeamMember extends Model
         $this->attributes['date_of_birth'] = $value !== '' ? $value: null;
     }
 
+    public function teams() {
+        return $this->belongsToMany('App\Team')->withPivot('position');
+    }
 }

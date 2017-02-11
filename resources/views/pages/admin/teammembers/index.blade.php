@@ -10,7 +10,7 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Data urodzenia</th>
-            <th>Edytuj</th>
+            <th class="text-center">Edytuj</th>
         </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
                 <td>{{$member->first_name}}</td>
                 <td>{{$member->last_name}}</td>
                 <td>{{$member->date_of_birth}}</td>
-                <td><a href="{{action('AdminTeamMemberController@edit', [$member->id])}}">Edit</a></td>
+                <td class="text-center"><a href="{{action('AdminTeamMemberController@edit', [$member->id])}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
             </tr>
         @endforeach
         </tbody>

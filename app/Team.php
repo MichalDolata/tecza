@@ -29,4 +29,8 @@ class Team extends Model
     {
         return 'slug';
     }
+
+    public function members() {
+        return $this->belongsToMany('App\TeamMember')->withPivot('position');
+    }
 }

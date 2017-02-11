@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -56,6 +58,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
         Route::get('/{team}', 'AdminTeamController@edit');
         Route::post('/{team}', 'AdminTeamController@update');
+
+        Route::put('/{team}/czlonkowie', 'AdminTeamController@addMember');
+        Route::delete('/{team}/czlonkowie', 'AdminTeamController@deleteMember');
     });
 
     Route::group(['prefix' => '/czlonkowie'], function() {
