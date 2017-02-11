@@ -14,4 +14,9 @@ class TeamMember extends Model
     protected $fillable = [
         'first_name', 'last_name', 'date_of_birth'
     ];
+
+    public function setDateOfBirthAttribute($value) {
+        $this->attributes['date_of_birth'] = $value !== '' ? $value: null;
+    }
+
 }

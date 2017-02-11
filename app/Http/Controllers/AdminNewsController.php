@@ -13,7 +13,7 @@ class AdminNewsController extends Controller
 {
     public function index() {
         $allNews = News::all();
-        return view('pages.admin.news.index')->with('allNews', $allNews);
+        return view('pages.admin.news.index', compact('allNews'));
     }
 
     public function create() {
@@ -21,57 +21,45 @@ class AdminNewsController extends Controller
     }
 
     public function store(Request $request) {
-        $validator = Validator::make($request->all(),
+        $this->validate($request,
             [
-                'title' => 'required|max:255|unique:news|slug:news',
+                'title' => 'bail|required|max:255|unique:news|slug:news',
                 'lead' => 'required',
                 'content' => 'required'
             ]);
 
-        if ($validator->fails()) {
-            return redirect()->action('AdminNewsController@create')
-                ->withErrors($validator)
-                ->withInput();
-        } else {
-            $news = News::create([
-                'author_id' => Auth::id(),
-                'title' => $request->input('title'),
-                'lead' => $request->input('lead'),
-                'content' => $request->input('content'),
-            ]);
+        $news = News::create([
+            'author_id' => Auth::id(),
+            'title' => $request->input('title'),
+            'lead' => $request->input('lead'),
+            'content' => $request->input('content'),
+        ]);
 
-            $request->session()->flash('status', 'Utworzono news');
-            return redirect()->action('AdminNewsController@edit', [$news->slug]);
-        }
+        $request->session()->flash('status', 'Utworzono news');
+        return redirect()->action('AdminNewsController@edit', [$news->slug]);
     }
 
     public function edit(Request $request, News $news) {
-        return view('pages.admin.news.edit')->with('news', $news);
+        return view('pages.admin.news.edit', compact('news'));
     }
 
     public function update(Request $request, News $news) {
-        $validator = Validator::make($request->all(),
+        $this->validate($request,
             [
-                'title' => ['required', 'max:255', Rule::unique('news')->ignore($news->id), 'slug:news,'.$news->id],
+                'title' => ['bail', 'required', 'max:255', Rule::unique('news')->ignore($news->id), 'slug:news,'.$news->id],
                 'lead' => 'required',
                 'content' => 'required',
             ]);
 
-        if ($validator->fails()) {
-            return redirect()->action('AdminNewsController@edit', [$news->slug])
-                ->withErrors($validator)
-                ->withInput();
-        } else {
-            $news->title = $request->input('title', $news->title);
-            $news->lead = $request->input('lead', $news->lead);
-            $news->content = $request->input('content', $news->content);
+        $news->title = $request->input('title');
+        $news->lead = $request->input('lead');
+        $news->content = $request->input('content');
 
-            $news->save();
+        $news->save();
 
-            $request->session()->flash('status', 'Zedytowano news');
-            return redirect()->action('AdminNewsController@edit', [$news->slug]);
-        }
+        $request->session()->flash('status', 'Zedytowano news');
+        return redirect()->action('AdminNewsController@edit', [$news->slug]);
     }
 
-    // TODO: delete function
+    // TODO: function delete
 }
