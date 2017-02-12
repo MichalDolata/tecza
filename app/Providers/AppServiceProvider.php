@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
             return $count === 0;
         });
 
+        Route::resourceVerbs([
+            'create' => 'dodaj',
+            'edit' => 'edytuj',
+        ]);
     }
 
     /**

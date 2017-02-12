@@ -76,6 +76,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::get('/rozgrywki', function() {
        return 'Admin panel - rozgrywki';
     });
+
+    Route::resource('kluby', 'AdminClubController', [
+        'except' => ['show'],
+        'parameters' => ['kluby' => 'club']
+    ]);
+
+    Route::resource('rozgrywki', 'AdminContestController', [
+        'except' => ['show'],
+        'parameters' => ['rozgrywki' => 'contest']
+    ]);
 });
 
 Auth::routes();
