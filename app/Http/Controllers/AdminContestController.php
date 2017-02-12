@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminContestController extends Controller
 {
@@ -14,7 +15,8 @@ class AdminContestController extends Controller
      */
     public function index()
     {
-        //
+        $contests = Contest::all();
+        return view('pages.admin.contests.index', compact('contests'));
     }
 
     /**
@@ -24,7 +26,7 @@ class AdminContestController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.contests.create');
     }
 
     /**
@@ -35,18 +37,18 @@ class AdminContestController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'name' => 'bail|required|max:255|unique:contests',
+            'number_of_teams' => 'bail|required|numeric|min:2'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Contest  $contest
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Contest $contest)
-    {
-        //
+        $contest = Contest::create([
+            'name' => $request->input('name'),
+            'number_of_teams' => $request->input('number_of_teams'),
+            'revenge' => $request->has('revenge')
+        ]);
+
+        return redirect()->action('AdminContestController@edit', ['id' => $contest->id]);
     }
 
     /**
@@ -57,7 +59,7 @@ class AdminContestController extends Controller
      */
     public function edit(Contest $contest)
     {
-        //
+        return view('pages.admin.contests.edit', compact('contest'));
     }
 
     /**
@@ -69,7 +71,16 @@ class AdminContestController extends Controller
      */
     public function update(Request $request, Contest $contest)
     {
-        //
+        $this->validate($request, [
+            'name' => ['bail', 'required', 'max:255', Rule::unique('contests')->ignore($contest->id)],
+            'number_of_teams' => 'bail|required|numeric|min:2'
+        ]);
+
+        $contest->name = $request->input('name');
+        $contest->number_of_teams = $request->input('number_of_teams');
+
+        $request->session()->flash('status', 'Zedytowano rozgrywki');
+        return redirect()->action('AdminContestController@edit', ['id' => $contest->id]);
     }
 
     /**
