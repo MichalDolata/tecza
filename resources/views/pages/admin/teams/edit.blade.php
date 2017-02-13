@@ -5,7 +5,7 @@
 @section('content')
     @include('partials.admin.alerts')
 
-    <div class="row" id="team">
+    <div class="row list-container">
         <div class="col-sm-6">
             <form method="POST" action="{{ action('AdminTeamController@update', [$team->slug]) }}">
                 {{ csrf_field() }}
@@ -100,7 +100,7 @@
     @parent
 
     <script>
-        $("#team").on('click', '.add-member', function () {
+        $(".list-container").on('click', '.add-member', function () {
             var memberId = $(this).closest("li").data("id"),
                 position = $(this).data("position"),
                 description = $(this).siblings().first().text();
@@ -124,7 +124,7 @@
                 })
         });
 
-        $("#team").on('click', '.delete-member', function () {
+        $(".list-container").on('click', '.delete-member', function () {
             var memberId = $(this).closest("li").data("id"),
                 position = $(this).closest("li").data("position"),
                 container = $(this).closest('li');

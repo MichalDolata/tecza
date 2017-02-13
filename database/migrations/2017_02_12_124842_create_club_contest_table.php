@@ -16,6 +16,7 @@ class CreateClubContestTable extends Migration
         Schema::create('club_contest', function (Blueprint $table) {
             $table->integer('contest_id');
             $table->integer('club_id');
+            $table->unique(['contest_id', 'club_id']);
         });
     }
 

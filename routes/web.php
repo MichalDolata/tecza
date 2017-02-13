@@ -73,10 +73,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
         Route::post('/{member}', 'AdminTeamMemberController@update');
     });
 
-    Route::get('/rozgrywki', function() {
-       return 'Admin panel - rozgrywki';
-    });
-
     Route::resource('kluby', 'AdminClubController', [
         'except' => ['show'],
         'parameters' => ['kluby' => 'club']
@@ -86,6 +82,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
         'except' => ['show'],
         'parameters' => ['rozgrywki' => 'contest']
     ]);
+
+    Route::group(['prefix' => 'rozgrywki'], function() {
+        Route::put('{contest}/edytuj/kluby', 'AdminContestController@addClub');
+        Route::delete('{contest}/edytuj/kluby', 'AdminContestController@deleteClub');
+
+        Route::get('{contest}/edytuj/terminarz', 'AdminTimetableController@edit');
+        Route::put('{contest}/edytuj/terminarz', 'AdminTimetableController@update');
+    });
 });
 
 Auth::routes();

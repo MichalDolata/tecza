@@ -26,8 +26,6 @@ class CreateMatchesTable extends Migration
             $table->integer('away_score')->nullable();
 
             $table->dateTime('date')->nullable();
-
-            $table->timestamps();
         });
     }
 

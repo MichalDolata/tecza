@@ -106,15 +106,15 @@ body {
     border-radius: 50%;
 }
 
-#team .badge{
+.list-container .badge{
     cursor: pointer;
 }
 
-#team .badge:hover{
+.list-container .badge:hover{
     background-color: #337ab7;
 }
 
-#team .badge:active {
+.list-container .badge:active {
     background-color: #204d74;
     border-color: #204d74;
 }

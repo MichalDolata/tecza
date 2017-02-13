@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contest;
+use App\Club;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -42,11 +43,22 @@ class AdminContestController extends Controller
             'number_of_teams' => 'bail|required|numeric|min:2'
         ]);
 
+        $numberOfTeams = $request->input('number_of_teams');
+        $revenge = $request->has('revenge');
+
         $contest = Contest::create([
             'name' => $request->input('name'),
-            'number_of_teams' => $request->input('number_of_teams'),
-            'revenge' => $request->has('revenge')
+            'number_of_teams' => $numberOfTeams,
+            'revenge' => $revenge
         ]);
+
+        $matchesPerRound = intval($numberOfTeams / 2);
+        $numberOfRounds = ($numberOfTeams * ($numberOfTeams - 1)) / (2 * $matchesPerRound);
+        if($revenge) {
+            $numberOfRounds *= 2;
+        }
+
+        $contest->createTimetableStructure($numberOfRounds, $matchesPerRound);
 
         return redirect()->action('AdminContestController@edit', ['id' => $contest->id]);
     }
@@ -59,7 +71,8 @@ class AdminContestController extends Controller
      */
     public function edit(Contest $contest)
     {
-        return view('pages.admin.contests.edit', compact('contest'));
+        $clubs = Club::all();
+        return view('pages.admin.contests.edit', compact('contest', 'clubs'));
     }
 
     /**
@@ -73,11 +86,9 @@ class AdminContestController extends Controller
     {
         $this->validate($request, [
             'name' => ['bail', 'required', 'max:255', Rule::unique('contests')->ignore($contest->id)],
-            'number_of_teams' => 'bail|required|numeric|min:2'
         ]);
 
         $contest->name = $request->input('name');
-        $contest->number_of_teams = $request->input('number_of_teams');
 
         $request->session()->flash('status', 'Zedytowano rozgrywki');
         return redirect()->action('AdminContestController@edit', ['id' => $contest->id]);
@@ -92,5 +103,15 @@ class AdminContestController extends Controller
     public function destroy(Contest $contest)
     {
         //
+    }
+
+    public function addClub(Request $request, Contest $contest) {
+        $club = Club::find($request->id);
+        $contest->clubs()->attach($club);
+    }
+
+    public function deleteClub(Request $request, Contest $contest) {
+        $club = Club::find($request->id);
+        $contest->clubs()->detach($club);
     }
 }

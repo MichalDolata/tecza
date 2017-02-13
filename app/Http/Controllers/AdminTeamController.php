@@ -56,8 +56,6 @@ class AdminTeamController extends Controller
         $member = TeamMember::find($request->id);
         $position = $request->position;
         $team->members()->save($member, compact('position'));
-
-        return '';
     }
 
     public function deleteMember(Request $request, Team $team) {
@@ -66,7 +64,5 @@ class AdminTeamController extends Controller
         $team = $team->id;
         DB::table('team_team_member')->where('team_id', $team)
             ->where('team_member_id', $member)->where('position', $position)->delete();
-
-        return '';
     }
 }
