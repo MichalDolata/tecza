@@ -19,6 +19,7 @@ class CreateTeamsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->integer('order')->default(-1);
+            $table->string('image_id');
 
             $table->timestamps();
         });

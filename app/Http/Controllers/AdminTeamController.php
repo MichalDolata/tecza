@@ -7,6 +7,8 @@ use Illuminate\Validation\Rule;
 use App\Team;
 use App\TeamMember;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class AdminTeamController extends Controller
 {
@@ -22,10 +24,18 @@ class AdminTeamController extends Controller
     public function store(Request $request) {
         $this->validate($request, [
             'name' => 'bail|required|max:255|unique:teams|slug:teams',
+            'image' => 'bail|required|image'
         ]);
 
+        $uploadedImage = $request->file('image');
+        $id = time().uniqid();
 
-        $team = Team::create($request->only(['name']));
+        $this->storeImage($uploadedImage, $id);
+
+        $team = Team::create([
+            'name' => $request->input('name'),
+            'image_id' => $id
+        ]);
 
         $request->session()->flash('status', 'Utworzono druzyne');
         return redirect()->action('AdminTeamController@edit', [$team->slug]);
@@ -42,9 +52,20 @@ class AdminTeamController extends Controller
         $this->validate($request, [
             'name' => ['bail', 'required', 'max:255',
                 Rule::unique('teams')->ignore($team->id), 'slug:teams,'.$team->id],
+            'image' => 'image'
         ]);
 
         $team->name = $request->input('name');
+
+        if($request->hasFile('image')) {
+            Storage::delete("images/teams//{$team->image_id}.jpg");
+
+            $uploadedImage = $request->file('image');
+            $id = time().uniqid();
+
+            $this->storeImage($uploadedImage, $id);
+            $team->image_id = $id;
+        }
 
         $team->save();
 
@@ -64,5 +85,10 @@ class AdminTeamController extends Controller
         $team = $team->id;
         DB::table('team_team_member')->where('team_id', $team)
             ->where('team_member_id', $member)->where('position', $position)->delete();
+    }
+
+    protected function storeImage($uploadedImage, $id) {
+        $image = Image::make($uploadedImage)->resize(600, 330)->encode('jpg', 100);
+        Storage::put("images/teams/{$id}.jpg", $image->getEncoded());
     }
 }

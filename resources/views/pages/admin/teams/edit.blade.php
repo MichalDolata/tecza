@@ -7,12 +7,16 @@
 
     <div class="row list-container">
         <div class="col-sm-6">
-            <form method="POST" action="{{ action('AdminTeamController@update', [$team->slug]) }}">
+            <form method="POST" action="{{ action('AdminTeamController@update', [$team->slug]) }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <br>
                 <div class="form-group">
                     <label for="first_name">Nazwa</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $team->name) }}">
+                </div>
+                    <div class="form-group">
+                    <label for="image">Zdjęcie</label>
+                    <input type="file" name="image" id="image">
                 </div>
                 <input type="submit" class="btn btn-primary" value="Edytuj">
             </form>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contest;
+use App\ContestTable;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +46,12 @@ class AppServiceProvider extends ServiceProvider
 
         \Carbon\Carbon::setLocale(config('app.locale'));
 
+
+        view()->composer('partials.page.sidebar', function($view) {
+            $contest = Contest::find(1);
+            $view->with('table', new ContestTable($contest->clubs, $contest->matches));
+            $view->with('contest', $contest);
+        });
 /*        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
             var_dump($query->sql);
             var_dump($query->bindings);

@@ -76,7 +76,8 @@
   th {
     color: #16174f;
   }
-  td {
+  td, th {
+    padding: 2px 0;
     text-align: center;
   }
 }

@@ -1,0 +1,18 @@
+#teamsList {
+  width: 95%;
+  margin: 0 auto;
+
+  > a {
+    max-width: 600px;
+    font-size: 0;
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+
+    &:hover {
+      > .mask {
+        background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.8));
+      }
+    }
+  }
+}

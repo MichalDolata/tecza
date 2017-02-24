@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Team extends Model
 {
@@ -12,7 +13,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'image_id'
     ];
 
     public function setNameAttribute($value) {
@@ -32,5 +33,9 @@ class Team extends Model
 
     public function members() {
         return $this->belongsToMany('App\TeamMember')->withPivot('position');
+    }
+
+    public function getImageURL() {
+        return Storage::url("images/teams/{$this->image_id}.jpg");
     }
 }

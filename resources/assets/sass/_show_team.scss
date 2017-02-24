@@ -1,0 +1,30 @@
+#showTeam {
+  width: 95%;
+  margin: 0 auto;
+
+  > img {
+    display: block;
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  > h2 {
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    color: #16174f;
+    font-size: 24px;
+    border-bottom: 5px #e41810 solid;
+  }
+
+  > ul {
+    > li {
+      padding: 5px 8px;
+      &.position {
+        margin-bottom: 10px;
+        color: #16174f;
+        font-size: 18px;
+        border-bottom: 3px #e41810 solid;
+      }
+    }
+  }
+}

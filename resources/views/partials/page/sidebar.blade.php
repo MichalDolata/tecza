@@ -23,7 +23,7 @@
     </div>
     <div class="sideBlock">
         <div class="sideBlock__header">
-            TABELA II LIGI
+            {{ strtoupper($contest->name) }}
         </div>
         <div class="sideBlock__content">
             <table id="sideTable">
@@ -36,66 +36,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>MKS Tęcza Kościan</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
+                @foreach($table->getClubs() as $club)
+                    <tr>
+                        <td>{{ $club->position }}</td>
+                        <td>{{ $club->name }}</td>
+                        <td>{{ $club->matches }}</td>
+                        <td>{{ $club->points }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

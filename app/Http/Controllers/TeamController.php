@@ -13,6 +13,7 @@ class TeamController extends Controller
     }
 
     public function show(Team $team) {
-        return view('pages.teams.show', compact('team'));
+        $teamMembers = $team->members->groupBy('pivot.position');
+        return view('pages.teams.show', compact('team', 'teamMembers'));
     }
 }

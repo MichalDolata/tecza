@@ -26,17 +26,13 @@ class AdminNewsController extends Controller
                 'title' => 'bail|required|max:255|unique:news|slug:news',
                 'lead' => 'required',
                 'content' => 'required',
-                'image' => 'required|image'
+                'image' => 'bail|required|image'
             ]);
 
         $uploadedImage = $request->file('image');
         $id = time().uniqid();
 
-        $image = Image::make($uploadedImage)->resize(600, 330)->encode('jpg', 100);
-        Storage::put("images/news/{$id}.jpg", $image->getEncoded());
-
-        $thumbnail = Image::make($uploadedImage)->resize(180, 100)->encode('jpg', 100);
-        Storage::put("images/news/thumbnail/{$id}.jpg", $thumbnail->getEncoded());
+        $this->storeImage($uploadedImage, $id);
 
         $news = News::create([
             'author_id' => Auth::id(),
@@ -68,11 +64,13 @@ class AdminNewsController extends Controller
         $news->content = $request->input('content');
 
         if($request->hasFile('image')) {
-            Storage::delete("images/{$news->image_id}.jpg");
-            $file = $request->file('image');
-            $file = Image::make($file)->resize(600, 330)->encode('jpg', 100);
-            $id = uniqid();
-            Storage::put("images/{$id}.jpg", $file->getEncoded());
+            Storage::delete("images/news/{$news->image_id}.jpg");
+            Storage::delete("images/news/thumbnail/{$news->image_id}.jpg");
+
+            $uploadedImage = $request->file('image');
+            $id = time().uniqid();
+
+            $this->storeImage($uploadedImage, $id);
             $news->image_id = $id;
         }
 
@@ -83,4 +81,12 @@ class AdminNewsController extends Controller
     }
 
     // TODO: function delete
+
+    protected function storeImage($uploadedImage, $id) {
+        $image = Image::make($uploadedImage)->resize(600, 330)->encode('jpg', 100);
+        Storage::put("images/news/{$id}.jpg", $image->getEncoded());
+
+        $thumbnail = Image::make($uploadedImage)->resize(180, 100)->encode('jpg', 100);
+        Storage::put("images/news/thumbnail/{$id}.jpg", $thumbnail->getEncoded());
+    }
 }
