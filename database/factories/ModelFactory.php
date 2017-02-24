@@ -29,6 +29,7 @@ $factory->define(App\News::class, function (Faker\Generator $faker) {
        'title' => $faker->sentence(mt_rand(3, 10)),
        'lead' => $faker->paragraph,
        'content' => join("\n\n", $faker->paragraphs(mt_rand(3, 5))),
+       'image_id' => '58adb497c66d0',
    ];
 });
 

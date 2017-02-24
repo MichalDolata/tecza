@@ -13,9 +13,7 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index');
 
 Route::group(['prefix' => 'aktualnosci'], function() {
     Route::get('/', 'NewsController@index');
@@ -23,9 +21,7 @@ Route::group(['prefix' => 'aktualnosci'], function() {
     Route::get('/{news}', 'NewsController@show')->where('news', '[a-zA-Z0-9-]+');
 });
 
-Route::get('/rozgrywki', function() {
-    return 'rozgrywki';
-});
+Route::get('/rozgrywki/{contest}', 'TableController@show');
 
 Route::get('/druzyny', function() {
     return 'druzyny';

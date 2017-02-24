@@ -12,7 +12,7 @@ class News extends Model
      * @var array
      */
     protected $fillable = [
-        'author_id', 'title', 'lead', 'content',
+        'author_id', 'title', 'lead', 'content', 'image_id'
     ];
 
     /**

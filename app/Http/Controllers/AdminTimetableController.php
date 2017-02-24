@@ -25,6 +25,6 @@ class AdminTimetableController extends Controller
             ]);
         }
 
-        return $request->input('matches');
+        return redirect()->action('AdminTimetableController@edit', ['contest' => $contest]);
     }
 }

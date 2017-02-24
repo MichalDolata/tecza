@@ -41,6 +41,13 @@ class AppServiceProvider extends ServiceProvider
             'create' => 'dodaj',
             'edit' => 'edytuj',
         ]);
+
+        \Carbon\Carbon::setLocale(config('app.locale'));
+        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+            var_dump($query->sql);
+            var_dump($query->bindings);
+            var_dump($query->time);
+        });
     }
 
     /**

@@ -1,0 +1,51 @@
+footer {
+  margin-top: 25px;
+  width: 100%;
+  background-color: #16174f;
+  padding: 15px 0;
+  border-top: 4px solid #e41810;
+  color: white;
+  > div {
+    position: relative;
+    height: inherit;
+  }
+  #realization {
+    bottom: 10px;
+    right: 10px;
+    position: absolute;
+    font-size: 13px;
+    span {
+      vertical-align: middle;
+    }
+    a {
+      margin-left: 2px;
+    }
+    img {
+      opacity: 0.2;
+      vertical-align: middle;
+      transition: opacity 0.5s;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.siteMap {
+  margin-left: 30px;
+  line-height: normal;
+  .siteMap__category {
+    font-size:18px;
+    color: #e41810;
+    &:hover {
+      color: #c91810;
+    }
+  }
+  a {
+    font-size: 13px;
+    color: white;
+    &:hover {
+      color: #c9c9c9;
+    }
+  }
+}

@@ -13,5 +13,4 @@ class Match extends Model
     public function contest() {
         return $this->belongsTo('App\Contest');
     }
-
 }

@@ -1,0 +1,59 @@
+#portal {
+  width: 90%;
+  margin: 0 auto;
+  a {
+    display: block;
+    font-size: 0;
+  }
+}
+
+#main_article {
+  position: relative;
+  img {
+    width: 100%;
+  }
+  &:hover {
+    .mask {
+      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1))
+    }
+  }
+}
+
+#secondary_articles {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.secondary_article {
+  position: relative;
+  width: 48%;
+  img {
+    width: 100%;
+  }
+  .title {
+    font-size: 16px;
+  }
+  &:hover {
+    .mask {
+      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1))
+    }
+  }
+}
+
+.mask {
+  position: absolute;
+  background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.5));
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  position: absolute;
+  color: white;
+  font-size: 28px;
+  width: 92%;
+  left: 4%;
+  bottom: 15px;
+  line-height: 140%;
+}
