@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
@@ -35,6 +36,13 @@ class News extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function getImageURL() {
+        return Storage::url("images/news/{$this->image_id}.jpg");
+    }
+
+    public function getThumbnailURL() {
+        return Storage::url("images/news/thumbnail/{$this->image_id}.jpg");
+    }
     /**
      * Get the route key for the model.
      *

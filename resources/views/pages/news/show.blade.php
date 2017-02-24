@@ -3,7 +3,7 @@
 @section('content')
     <div id="news">
         <div id="news__image">
-            <img src="{{ Storage::url("images/{$news->image_id}.jpg") }}">
+            <img src="{{ $news->getImageURL() }}">
             <div id="news__tags">
                 <div class="news__tag">
                     #MKSTĘCZA

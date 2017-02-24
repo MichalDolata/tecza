@@ -23,8 +23,9 @@ Route::group(['prefix' => 'aktualnosci'], function() {
 
 Route::get('/rozgrywki/{contest}', 'TableController@show');
 
-Route::get('/druzyny', function() {
-    return 'druzyny';
+Route::group(['prefix' => 'druzyny'], function() {
+    Route::get('/', 'TeamController@index');
+    Route::get('/{team}', 'TeamController@show')->where('news', '[a-zA-Z0-9-]+');
 });
 
 Route::get('/kontakt', function() {

@@ -29,10 +29,14 @@ class AdminNewsController extends Controller
                 'image' => 'required|image'
             ]);
 
-        $file = $request->file('image');
-        $file = Image::make($file)->resize(600, 330)->encode('jpg', 100);
-        $id = uniqid();
-        Storage::put("images/{$id}.jpg", $file->getEncoded());
+        $uploadedImage = $request->file('image');
+        $id = time().uniqid();
+
+        $image = Image::make($uploadedImage)->resize(600, 330)->encode('jpg', 100);
+        Storage::put("images/news/{$id}.jpg", $image->getEncoded());
+
+        $thumbnail = Image::make($uploadedImage)->resize(180, 100)->encode('jpg', 100);
+        Storage::put("images/news/thumbnail/{$id}.jpg", $thumbnail->getEncoded());
 
         $news = News::create([
             'author_id' => Auth::id(),
