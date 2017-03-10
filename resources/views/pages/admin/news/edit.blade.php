@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             <label for="content">Treść</label>
-            <textarea name="content" id="content" class="form-control" rows="15">{{ old('content',  $news->content) }}</textarea>
+            <textarea name="content" id="content" class="form-control">{{ old('content',  $news->content) }}</textarea>
         </div>
         <div class="form-group">
             <label for="image">Zdjęcie</label>
@@ -26,4 +26,20 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Edytuj">
     </form>
+@endsection
+
+@section('footer')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <style>
+        .CodeMirror, .CodeMirror-scroll {
+            height: 400px;
+        }
+    </style>
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("content"),
+            initialValue: `{{ old('content',  $news->content) }}`,
+            spellChecker: false}
+        );
+    </script>
 @endsection

@@ -27,3 +27,19 @@
         <input type="submit" class="btn btn-primary" value="Dodaj">
     </form>
 @endsection
+
+@section('footer')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <style>
+        .CodeMirror, .CodeMirror-scroll {
+            height: 400px;
+        }
+    </style>
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("content"),
+                initialValue: `{{ old('content') }}`,
+                spellChecker: false}
+        );
+    </script>
+@endsection

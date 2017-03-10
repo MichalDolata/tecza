@@ -37,12 +37,21 @@
                 </thead>
                 <tbody>
                 @foreach($table->getClubs() as $club)
+                    @if($club->id === 1)
+                    <tr>
+                        <td><strong>{{ $club->position }}</strong></td>
+                        <td><strong>{{ $club->name }}</strong></td>
+                        <td><strong>{{ $club->matches }}</strong></td>
+                        <td><strong>{{ $club->points }}</strong></td>
+                    </tr>
+                    @else
                     <tr>
                         <td>{{ $club->position }}</td>
                         <td>{{ $club->name }}</td>
                         <td>{{ $club->matches }}</td>
                         <td>{{ $club->points }}</td>
                     </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>

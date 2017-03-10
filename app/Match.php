@@ -13,4 +13,12 @@ class Match extends Model
     public function contest() {
         return $this->belongsTo('App\Contest');
     }
+
+    public function homeClub() {
+        return $this->belongsTo('App\Club', 'home_id');
+    }
+
+    public function awayClub() {
+        return $this->belongsTo('App\Club', 'away_id');
+    }
 }

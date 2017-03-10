@@ -21,11 +21,15 @@ Route::group(['prefix' => 'aktualnosci'], function() {
     Route::get('/{news}', 'NewsController@show')->where('news', '[a-zA-Z0-9-]+');
 });
 
-Route::get('/rozgrywki/{contest}', 'TableController@show');
+Route::group(['prefix' => 'rozgrywki'], function() {
+    Route::get('/', 'ContestController@index');
+
+    Route::get('/{contest}', 'ContestController@show')->where('contest', '[a-zA-Z0-9-]+');
+});
 
 Route::group(['prefix' => 'druzyny'], function() {
     Route::get('/', 'TeamController@index');
-    Route::get('/{team}', 'TeamController@show')->where('news', '[a-zA-Z0-9-]+');
+    Route::get('/{team}', 'TeamController@show')->where('team', '[a-zA-Z0-9-]+');
 });
 
 Route::get('/kontakt', function() {
@@ -90,5 +94,3 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');

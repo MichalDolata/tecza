@@ -17,6 +17,8 @@
         <p id="news__lead">
             {{ $news->lead }}
         </p>
-        {{ $news->content }}
+        <div id="news__content">
+            {!! Markdown::convertToHtml($news->content) !!}
+        </div>
     </div>
 @endsection

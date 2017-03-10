@@ -9,7 +9,7 @@
             <ul>
                 <li><a href="/aktualnosci">Aktualności</a></li>
                 <li><a href="/druzyny">Drużyny</a></li>
-                <li><a href="#">Rozgrywki</a></li>
+                <li><a href="/rozgrywki">Rozgrywki</a></li>
                 <li><a href="#">Kontakt</a></li>
             </ul>
         </nav>

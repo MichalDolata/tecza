@@ -32,7 +32,7 @@
                                     @endforeach
                                 </select>
                                 <input type="datetime-local" name="matches[{{$match->id}}][date]" class="form-control"
-                                    value="{{$match->date}}">
+                                    value="{{ $match->date ? Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $match->date)->format('Y-m-d\TH:i:s') : ''}}">
                             </li>
                         @endforeach
                     </ul>
