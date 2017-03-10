@@ -91,6 +91,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
         Route::get('{contest}/edytuj/terminarz', 'AdminTimetableController@edit');
         Route::put('{contest}/edytuj/terminarz', 'AdminTimetableController@update');
     });
+
+    Route::get('nastepne-spotkanie', 'AdminNextMatchController@edit');
+    Route::put('nastepne-spotkanie', 'AdminNextMatchController@update');
 });
 
 Auth::routes();

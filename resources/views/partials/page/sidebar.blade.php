@@ -4,21 +4,37 @@
             NASTĘPNE SPOTKANIE
         </div>
         <div class="sideBlock__content" id="nextMatch">
+            @if($nextMatch->active)
             <div id="nextMatch__logos">
+                @if($nextMatch->type == 'home')
                 <div class="nextMatch__team">
                     <img src="{{ url('/images/logo.png') }}" class="nextMatch__teamImage">
                     <span class="nextMatch__teamName">MKS Tęcza Kościan</span>
                 </div>
                 <span id="nextMatch__vs">VS.</span>
                 <div class="nextMatch__team">
-                    <img src="{{ url('/images/logo.png') }}" class="nextMatch__teamImage">
-                    <span class="nextMatch__teamName">MKS Tęcza Kościan</span>
+                    <img src="{{ url('/storage/images/opponent_logo.png') }}" class="nextMatch__teamImage">
+                    <span class="nextMatch__teamName">{{ $nextMatch->opponent }}</span>
                 </div>
+                @else
+                    <div class="nextMatch__team">
+                        <img src="{{ url('/storage/images/opponent_logo.png') }}" class="nextMatch__teamImage">
+                        <span class="nextMatch__teamName">{{ $nextMatch->opponent }}</span>
+                    </div>
+                    <span id="nextMatch__vs">VS.</span>
+                    <div class="nextMatch__team">
+                        <img src="{{ url('/images/logo.png') }}" class="nextMatch__teamImage">
+                        <span class="nextMatch__teamName">MKS Tęcza Kościan</span>
+                    </div>
+                @endif
             </div>
             <div id="nextMatch__details">
-                <p><i class="fa fa-clock-o" aria-hidden="true"></i><span>12 września 2017r. 15:00</span></p>
-                <p><i class="fa fa-map-marker" aria-hidden="true"></i><span>ZSP im. Franciszka Ratajczaka</span></p>
+                <p><span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ $nextMatch->date ? $nextMatch->date->format("d.m.Y H:i") : ''}}</span></p>
+                <p><span><i class="fa fa-map-marker" aria-hidden="true"></i>{{ $nextMatch->place }}</span></p>
             </div>
+            @else
+                <p>Brak spotkań w najbliższym czasie</p>
+            @endif
         </div>
     </div>
     <div class="sideBlock">

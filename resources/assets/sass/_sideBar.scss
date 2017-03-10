@@ -28,14 +28,15 @@
       flex-wrap: wrap;
 
       .nextMatch__teamName {
+        text-align: center;
         font-size: 0.9em;
         font-weight: normal;
+        margin-top: 4px;
       }
 
       .nextMatch__teamImage {
         display: block;
-        width: 110px * 0.7;
-        height: 126px * 0.7;
+        height: 128px * 0.7;
       }
     }
 
@@ -58,13 +59,14 @@
     p {
       display: flex;
       margin-bottom: 7px;
+      text-align: center;
     }
     img {
       width: 15px;
       height: 15px;
     }
-    span {
-      margin: -2px 0 0 5px;
+    i {
+      margin: 2px 5px 0 0;
     }
   }
 }
