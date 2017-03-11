@@ -13,7 +13,7 @@ class ContestTable
         }
         $this->matches = $matches;
 
-        $this->generate();
+        $this->generate('mainStats', $this->matches);
         $this->sortTable();
     }
 
@@ -25,13 +25,13 @@ class ContestTable
         return $this->clubList;
     }
 
-    protected function generate() {
-        foreach ($this->matches as $match) {
+    protected function generate($type, $matches) {
+        foreach ($matches as $match) {
             $homeId = $match->home_id; $awayId = $match->away_id;
             $homeScore = $match->home_score; $awayScore = $match->away_score;
             if(isset($homeId) && isset($awayId) && isset($homeScore) && isset($awayScore)) {
-                $this->getClub($homeId)->addResult($homeScore, $awayScore);
-                $this->getClub($awayId)->addResult($awayScore, $homeScore);
+                $this->getClub($homeId)->$type->addResult($homeScore, $awayScore);
+                $this->getClub($awayId)->$type->addResult($awayScore, $homeScore);
             }
         }
     }
@@ -39,66 +39,76 @@ class ContestTable
     protected function sortTable() {
         $clubsByPoints = [];
         foreach ($this->clubList as $club) {
-            $clubsByPoints[$club->points][] = $club;
+            $clubsByPoints[$club->mainStats->points][] = $club;
         }
 
         krsort($clubsByPoints);
 
+        $currentPosition = 1;
         foreach ($clubsByPoints as $group) {
             if(count($group) > 1) {
                 $teamsIds = array_reduce($group, function($carry, $item) {
                     $carry[] = $item->id;
                     return $carry;
                 }, []);
-
                 $matches = $this->matches->whereIn('home_id', $teamsIds)->whereIn('away_id', $teamsIds);
-                $tieTable = new TieContestTable($group, $matches);
-            }
-        }
+                $this->generate('subStats', $matches);
+                usort($group, 'self::sort');
 
-
-        $currentPosition = 1;
-        foreach ($clubsByPoints as $group) {
-            foreach ($group as $club) {
-                $club->position = $currentPosition;
+                foreach ($group as $club) {
+                    $club->position = $currentPosition++;
+                }
+            } else {
+                $group[0]->position = $currentPosition++;
             }
-            $currentPosition += count($group);
         }
 
         $this->clubList = array_reduce($clubsByPoints, "array_merge", []);
-    }
-
-
-}
-
-class TieContestTable extends ContestTable {
-    function __construct($clubs, $matches)
-    {
-        parent::__construct($clubs, $matches);
+        usort($this->clubList, "self::sortBy");
     }
 
     private function sort($a, $b) {
-        $result = $this->sortBy($a, $b, 'points');
+        $result = $this->sortBy($a->subStats, $b->subStats, 'points', 1);
         if($result) return $result;
 
-        $result = $this->sortBy($a, $b, 'goalsDiff');
+        $result = $this->sortBy($a->subStats, $b->subStats, 'goalsDiff', 1);
         if($result) return $result;
 
-        $result = $this->sortBy($a, $b, 'goalsFor');
+        $result = $this->sortBy($a->subStats, $b->subStats, 'goalsFor', 1);
+        if($result) return $result;
+
+        $result = $this->sortBy($a->mainStats, $b->mainStats, 'goalsDiff', 1);
+        if($result) return $result;
+
+        $result = $this->sortBy($a->mainStats, $b->mainStats, 'goalsFor', 1);
         if($result) return $result;
     }
 
-    private function sortBy($a, $b, $criterion) {
+    private function sortBy($a, $b, $criterion = 'position', $order = -1) {
         if($a->$criterion < $b->$criterion) {
-            return 1;
+            return 1 * $order;
         } else if($a->$criterion > $b->$criterion) {
-            return -1;
+            return -1 * $order;
         } else {
             return 0;
         }
     }
+}
+
+/*class TieContestTable extends ContestTable {
+    protected $clubStatsList = [];
+
+    function __construct($clubs, $matches)
+    {
+        parent::__construct($clubs, $matches);
+        foreach ($clubs as $club) {
+            $this->clubStatsList[$club->id] = $club;
+        }
+    }
+
+
 
     protected function sortTable() {
         usort($this->clubList, 'self::sort');
     }
-}
+}*/

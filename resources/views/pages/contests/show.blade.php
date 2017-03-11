@@ -23,14 +23,14 @@
                     <tr>
                         <td>{{ $club->position }}</td>
                         <td>{{ $club->name }}</td>
-                        <td>{{ $club->matches }}</td>
-                        <td>{{ $club->won }}</td>
-                        <td>{{ $club->drawn }}</td>
-                        <td>{{ $club->lost }}</td>
-                        <td>{{ $club->goalsFor }}</td>
-                        <td>{{ $club->goalsAgainst }}</td>
-                        <td>{{ $club->goalsDiff }}</td>
-                        <td>{{ $club->points }}</td>
+                        <td>{{ $club->mainStats->matches }}</td>
+                        <td>{{ $club->mainStats->won }}</td>
+                        <td>{{ $club->mainStats->drawn }}</td>
+                        <td>{{ $club->mainStats->lost }}</td>
+                        <td>{{ $club->mainStats->goalsFor }}</td>
+                        <td>{{ $club->mainStats->goalsAgainst }}</td>
+                        <td>{{ $club->mainStats->goalsDiff }}</td>
+                        <td>{{ $club->mainStats->points }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -9,7 +9,7 @@
 <ul class="nav nav-sidebar">
     @if(!Request::is('admin/nastepne-spotkanie*'))
         <li{!! Request::is('*/dodaj') ? ' class="active"' : '' !!}>
-            <a href="{{ Request::url() }}{!! Request::is('*/dodaj') ? '' : '/dodaj' !!}">Dodaj</a>
+            <a href="{{$addUrl}}">Dodaj</a>
         </li>
     @endif
 </ul>

@@ -57,15 +57,15 @@
                     <tr>
                         <td><strong>{{ $club->position }}</strong></td>
                         <td><strong>{{ $club->name }}</strong></td>
-                        <td><strong>{{ $club->matches }}</strong></td>
-                        <td><strong>{{ $club->points }}</strong></td>
+                        <td><strong>{{ $club->mainStats->matches }}</strong></td>
+                        <td><strong>{{ $club->mainStats->points }}</strong></td>
                     </tr>
                     @else
                     <tr>
                         <td>{{ $club->position }}</td>
                         <td>{{ $club->name }}</td>
-                        <td>{{ $club->matches }}</td>
-                        <td>{{ $club->points }}</td>
+                        <td>{{ $club->mainStats->matches }}</td>
+                        <td>{{ $club->mainStats->points }}</td>
                     </tr>
                     @endif
                 @endforeach

@@ -47,7 +47,11 @@ class AppServiceProvider extends ServiceProvider
 
         \Carbon\Carbon::setLocale(config('app.locale'));
 
-
+        view()->composer('partials.admin.sidemenu', function($view) {
+            $base = url('admin');
+            $url = explode('/', \Request::path());
+            $view->with('addUrl', "{$base}/{$url[1]}/dodaj");
+        });
         view()->composer('partials.page.sidebar', function($view) {
             $contest = Contest::find(1);
             $view->with('table', new ContestTable($contest->clubs, $contest->matches));
