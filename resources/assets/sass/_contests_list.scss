@@ -17,6 +17,21 @@
   }
 
   > ul {
+    table {
+      width: 100%;
+      td {
+        padding: 5px;
+        text-align: center;
+        width: 10%;
+      }
+      td:first-child, td:last-child {
+        width: 45%;
+      }
+      td:nth-child(2) {
+        color: white;
+        background-color: #16174f;
+      }
+    }
     > li {
       padding: 5px 8px;
       &.position {

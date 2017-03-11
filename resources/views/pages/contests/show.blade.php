@@ -41,11 +41,19 @@
             <li class="position">
                 {{$no}}. kolejka
             </li>
-            @foreach($round as $match)
             <li>
-                {{ "{$match->homeClub->name} {$match->home_score}:{$match->away_score} {$match->awayClub->name}" }}
-            </li>
+                <table>
+            @foreach($round as $match)
+                @if($match->homeClub and $match->awayClub)
+                <tr>
+                    <td>{{$match->homeClub->name}}</td>
+                    <td>{{ "{$match->home_score}:{$match->away_score}" }}</td>
+                    <td>{{$match->awayClub->name}}</td>
+                </tr>
+                @endif
+                </table>
             @endforeach
+            </li>
         </ul>
         @endforeach
     </div>
