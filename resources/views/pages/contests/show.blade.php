@@ -20,8 +20,8 @@
             </thead>
             <tbody>
                 @foreach($table->getClubs() as $club)
-                    @if($club->name === "MKS Tęcza Kościan")
                     <tr>
+                    @if($club->name === "MKS Tęcza Kościan")
                         <td><strong>{{ $club->position }}</strong></td>
                         <td><strong>{{ $club->name }}</strong></td>
                         <td><strong>{{ $club->mainStats->matches }}</strong></td>
@@ -32,7 +32,6 @@
                         <td><strong>{{ $club->mainStats->goalsAgainst }}</strong></td>
                         <td><strong>{{ $club->mainStats->goalsDiff }}</strong></td>
                         <td><strong>{{ $club->mainStats->points }}</strong></td>
-                    </tr>
                     @else
                         <td>{{ $club->position }}</td>
                         <td>{{ $club->name }}</td>
@@ -45,6 +44,7 @@
                         <td>{{ $club->mainStats->goalsDiff }}</td>
                         <td>{{ $club->mainStats->points }}</td>
                     @endif
+                    </tr>
                 @endforeach
             </tbody>
         </table>
