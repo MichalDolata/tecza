@@ -118,3 +118,7 @@ body {
     background-color: #204d74;
     border-color: #204d74;
 }
+
+.glyphicon-remove {
+    color: #e41810;
+}

@@ -19,7 +19,8 @@ class CreateNextMatchesTable extends Migration
             $table->enum('type', ['home', 'away'])->nullable();
             $table->string('opponent')->nullable();
             $table->string('place')->nullable();
-            $table->dateTime('date')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
         });
 
         DB::table('next_matches')->insert([

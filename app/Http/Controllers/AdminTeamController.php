@@ -58,7 +58,7 @@ class AdminTeamController extends Controller
         $team->name = $request->input('name');
 
         if($request->hasFile('image')) {
-            Storage::delete("images/teams//{$team->image_id}.jpg");
+            Storage::delete("images/teams/{$team->image_id}.jpg");
 
             $uploadedImage = $request->file('image');
             $id = time().uniqid();
@@ -71,6 +71,14 @@ class AdminTeamController extends Controller
 
         $request->session()->flash('status', 'Zedytowano druzyne');
         return redirect()->action('AdminTeamController@edit', [$team->slug]);
+    }
+
+    public function destroy(Request $request, Team $team) {
+        Storage::delete("images/teams/{$team->image_id}.jpg");
+        $team->delete();
+
+        $request->session()->flash('status', 'Usunieto druzyne');
+        return redirect()->action('AdminTeamController@index');
     }
 
     public function addMember(Request $request, Team $team) {

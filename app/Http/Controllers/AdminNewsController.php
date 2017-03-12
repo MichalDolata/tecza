@@ -80,7 +80,14 @@ class AdminNewsController extends Controller
         return redirect()->action('AdminNewsController@edit', [$news->slug]);
     }
 
-    // TODO: function delete
+    public function destroy(Request $request, News $news) {
+        Storage::delete("images/news/{$news->image_id}.jpg");
+        Storage::delete("images/news/thumbnail/{$news->image_id}.jpg");
+        $news->delete();
+
+        $request->session()->flash('status', 'Usunieto news');
+        return redirect()->action('AdminNewsController@index');
+    }
 
     protected function storeImage($uploadedImage, $id) {
         $image = Image::make($uploadedImage)->resize(600, 330)->encode('jpg', 100);

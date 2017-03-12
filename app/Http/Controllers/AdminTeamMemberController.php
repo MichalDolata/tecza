@@ -52,4 +52,11 @@ class AdminTeamMemberController extends Controller
         $request->session()->flash('status', 'Zedytowano członka');
         return redirect()->action('AdminTeamMemberController@edit', [$member->id]);
     }
+
+    public function destroy(Request $request, TeamMember $member) {
+        $member->delete();
+
+        $request->session()->flash('status', 'Usunieto członka');
+        return redirect()->action('AdminTeamMemberController@index');
+    }
 }

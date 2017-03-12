@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
         Route::get('/{news}', 'AdminNewsController@edit');
         Route::post('/{news}', 'AdminNewsController@update');
+
+        Route::delete('/{news}', 'AdminNewsController@destroy');
     });
 
     Route::group(['prefix' => '/druzyny'], function() {
@@ -59,6 +61,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
         Route::get('/{team}', 'AdminTeamController@edit');
         Route::post('/{team}', 'AdminTeamController@update');
+
+        Route::delete('/{team}', 'AdminTeamController@destroy');
 
         Route::put('/{team}/czlonkowie', 'AdminTeamController@addMember');
         Route::delete('/{team}/czlonkowie', 'AdminTeamController@deleteMember');
@@ -72,6 +76,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
         Route::get('/{member}', 'AdminTeamMemberController@edit');
         Route::post('/{member}', 'AdminTeamMemberController@update');
+
+        Route::delete('/{member}', 'AdminTeamMemberController@destroy');
     });
 
     Route::resource('kluby', 'AdminClubController', [

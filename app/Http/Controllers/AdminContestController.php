@@ -100,9 +100,12 @@ class AdminContestController extends Controller
      * @param  \App\Contest  $contest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contest $contest)
+    public function destroy(Request $request, Contest $contest)
     {
-        //
+        $contest->delete();
+
+        $request->session()->flash('status', 'Usunięto rozgrywki');
+        return redirect()->action('AdminContestController@index');
     }
 
     public function addClub(Request $request, Contest $contest) {

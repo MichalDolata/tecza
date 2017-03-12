@@ -33,7 +33,8 @@ class AdminNextMatchController extends Controller {
         $nextMatch->active = $request->has('active');
         $nextMatch->opponent = $request->input('opponent');
         $nextMatch->place = $request->input('place');
-        $nextMatch->date = $request->input('date') ? Carbon::createFromFormat('Y-m-d\TH:i', $request->input('date')) : null;
+        $nextMatch->date = $request->input('date') === '' ? null : $request->input('date') ;
+        $nextMatch->time = $request->input('time') === '' ? null : $request->input('time') ;
         $nextMatch->type = $request->input('type');
 
         $nextMatch->save();

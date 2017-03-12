@@ -29,8 +29,10 @@
                 @endif
             </div>
             <div id="nextMatch__details">
-                <p><span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ $nextMatch->date ? $nextMatch->date->format("d.m.Y H:i") : ''}}</span></p>
-                <p><span><i class="fa fa-map-marker" aria-hidden="true"></i>{{ $nextMatch->place }}</span></p>
+                <p><span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ $nextMatch->date ?
+                    \Carbon\Carbon::createFromFormat('Y-m-d', $nextMatch->date)->format("d.m.Y") : ''}} {{ date('H:i',
+                    strtotime($nextMatch->time)) }}</span></p>
+                @if($nextMatch->place)<p><span><i class="fa fa-map-marker" aria-hidden="true"></i>{{ $nextMatch->place }}</span></p>@endif
             </div>
             @else
                 <p>Brak spotkań w najbliższym czasie</p>

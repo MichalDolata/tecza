@@ -84,8 +84,11 @@ class AdminClubController extends Controller
      * @param  \App\Club  $club
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Club $club)
+    public function destroy(Request $request, Club $club)
     {
-        //
+        $club->delete();
+
+        $request->session()->flash('status', 'Usunięto klub');
+        return redirect()->action('AdminClubController@index');
     }
 }

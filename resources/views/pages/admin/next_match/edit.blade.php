@@ -28,8 +28,13 @@
         </div>
         <div class="form-group">
             <label for="date">Data</label>
-            <input type="datetime-local" class="form-control" id="date" name="date"
-                   value="{{ $nextMatch->date ? $nextMatch->date->format('Y-m-d\TH:i') : ''}}">
+            <input type="date" class="form-control" id="date" name="date"
+                   value="{{ $nextMatch->date }}">
+        </div>
+        <div class="form-group">
+            <label for="time">Godzina</label>
+            <input type="time" class="form-control" id="time" name="time"
+                   value="{{ $nextMatch->time }}">
         </div>
         <label class="radio-inline">
             <input type="radio" name="type" value="home" {{ $nextMatch->type === 'home' ? 'checked' : '' }}> Dom
