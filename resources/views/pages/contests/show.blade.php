@@ -51,8 +51,8 @@
                     <td>{{$match->awayClub->name}}</td>
                 </tr>
                 @endif
-                </table>
             @endforeach
+                </table>
             </li>
         </ul>
         @endforeach
