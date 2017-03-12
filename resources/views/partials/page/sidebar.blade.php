@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                 @foreach($table->getClubs() as $club)
-                    @if($club->id === 1)
+                    @if($club->name === "MKS Tęcza Kościan")
                     <tr>
                         <td><strong>{{ $club->position }}</strong></td>
                         <td><strong>{{ $club->name }}</strong></td>
