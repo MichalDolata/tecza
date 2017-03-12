@@ -46,13 +46,21 @@
             @foreach($round as $match)
                 @if($match->homeClub and $match->awayClub)
                 <tr>
-                    <td>{{$match->homeClub->name}}</td>
+                    @if($match->homeClub->name === "MKS Tęcza Kościan")
+                        <td><strong>{{$match->homeClub->name}}</strong></td>
+                    @else
+                        <td>{{$match->homeClub->name}}</td>
+                    @endif
                     <td>{{ "{$match->home_score}:{$match->away_score}" }}</td>
-                    <td>{{$match->awayClub->name}}</td>
+                        @if($match->awayClub->name === "MKS Tęcza Kościan")
+                            <td><strong>{{$match->awayClub->name}}</strong></td>
+                        @else
+                            <td>{{$match->awayClub->name}}</td>
+                        @endif
                 </tr>
                 @endif
-                </table>
             @endforeach
+                </table>
             </li>
         </ul>
         @endforeach
