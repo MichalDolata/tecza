@@ -4,7 +4,7 @@
             NASTĘPNE SPOTKANIE
         </div>
         <div class="sideBlock__content" id="nextMatch">
-            @if($nextMatch->active)
+            @if(isset($nextMatch) && $nextMatch->active)
             <div id="nextMatch__logos">
                 @if($nextMatch->type == 'home')
                 <div class="nextMatch__team">
@@ -40,6 +40,7 @@
         </div>
     </div>
     <div class="sideBlock">
+        @if(isset($contest))
         <div class="sideBlock__header">
             {{ strtoupper($contest->name) }}
         </div>
@@ -74,5 +75,6 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 </div>

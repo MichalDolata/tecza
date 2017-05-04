@@ -3,11 +3,13 @@
 @section('content')
     <div id="portal">
         <div id="main_article">
+            @if(isset($news[0]))
             <a href="{{ action('NewsController@show', ['news' => $news[0]]) }}">
                 <div class="mask"></div>
                 <div class="title"><h3>{{ $news[0]->title }}</h3></div>
                 <div><img src="{{ $news[0]->getImageURL() }}"></div>
             </a>
+            @endif
         </div>
         <div id="secondary_articles">
             @if(isset($news[1]))

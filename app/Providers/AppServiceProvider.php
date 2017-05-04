@@ -54,9 +54,11 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('partials.page.sidebar', function($view) {
             $contest = Contest::find(1);
-            $view->with('table', new ContestTable($contest->clubs, $contest->matches));
-            $view->with('contest', $contest);
-            $view->with('nextMatch', NextMatch::get()->first());
+            if(isset($contest)) {
+                $view->with('table', new ContestTable($contest->clubs, $contest->matches));
+                $view->with('contest', $contest);
+                $view->with('nextMatch', NextMatch::get()->first());
+            }
         });
 
 /*        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
